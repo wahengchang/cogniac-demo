@@ -5,7 +5,7 @@
       <p v-if="formError" class="error">
         {{ formError }}
       </p>
-      <p><i>To login, use <b>demo</b> as username and <b>demo</b> as password.</i></p>
+      <p><i>To login.</i></p>
       <p>Username: <input v-model="formUsername" type="text" name="username"></p>
       <p>Password: <input v-model="formPassword" type="password" name="password"></p>
       <button type="submit">
