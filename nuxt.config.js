@@ -10,6 +10,10 @@ export default {
       { hid: 'description', content: 'Auth Routes example' }
     ]
   },
+  env: {
+    COG_TENANT: process.env.COG_TENANT,
+    COG_SUBJECT_ID: process.env.COG_SUBJECT_ID,
+  },
   /*
   ** Add server middleware
   ** Nuxt.js uses `connect` module as server

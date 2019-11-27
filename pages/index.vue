@@ -21,8 +21,11 @@
       </button>
     </div>
     <p>
-      <NuxtLink to="/secret">
+      <!-- <NuxtLink to="/secret">
         Super secret page
+      </NuxtLink> -->
+      <NuxtLink to="/uploadMedia">
+        uploadMedia page
       </NuxtLink>
     </p>
   </div>

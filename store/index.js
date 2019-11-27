@@ -5,8 +5,15 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_USER (state, user) {
+  SET_USER (state, {user, c = '' /*ccookie*/}) {
     state.authUser = user
+    state.c = c
+  }
+}
+
+export const getters = {
+  GET_C: (state, getters) => {
+    return state.c
   }
 }
 
@@ -14,13 +21,15 @@ export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
   nuxtServerInit ({ commit }, { req }) {
     if (req.session && req.session.authUser) {
-      commit('SET_USER', req.session.authUser)
+      const {authUser: user, c} = req.session
+      commit('SET_USER', {user, c})
     }
   },
   async login ({ commit }, { username, password }) {
     try {
       const { data } = await axios.post('/api/login', { username, password })
-      commit('SET_USER', data)
+      const {username: user, c} = data
+      commit('SET_USER', {user, c})
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')

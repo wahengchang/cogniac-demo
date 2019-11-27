@@ -1,4 +1,5 @@
 import express from 'express'
+const cogniacAuth = require("../apis/cogniac/auth")
 
 // Create express router
 const router = express.Router()
@@ -17,10 +18,21 @@ router.use((req, res, next) => {
 // Add POST - /api/login
 router.post('/login', (req, res) => {
   if (req.body.username === 'demo' && req.body.password === 'demo') {
-    req.session.authUser = { username: 'demo' }
-    return res.json({ username: 'demo' })
+    const tenantId = process.env.COG_TENANT
+    const username = process.env.COG_USER
+    const password = process.env.COG_PASS
+    cogniacAuth.login({tenantId, username, password}).then((_res)=>{
+      req.session.authUser = { username: 'demo', c: _res.access_token }
+      req.session.c = _res.access_token
+      return res.json({ username: 'demo', c: _res.access_token })
+    }, (error)=>{
+      console.log('[ERROR]  POST /login: ', error)
+      return res.status(401).json({ message: error })
+    })
   }
-  res.status(401).json({ message: 'Bad credentials' })
+  else {
+    return res.status(401).json({ message: 'POST /login: Bad credentials' })
+  }
 })
 
 // Add POST - /api/logout
