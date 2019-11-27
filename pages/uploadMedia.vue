@@ -6,7 +6,7 @@
     <div class="uploadForm">
       <label>Files
         <!-- <input type="file" id="files" ref="files" multiple v-on:change="handleFilesUpload()"/> -->
-        <input type="file" id="files" ref="files" multiple accept="image/*;capture=camera" capture="filesystem" v-on:change="handleFilesUpload()"/>
+        <input type="file" id="files" ref="files" multiple accept="image/*" v-on:change="handleFilesUpload()"/>
       </label>
     </div>
     <div class="fileRow">
